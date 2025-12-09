@@ -49,8 +49,6 @@ const userSchema = new mongoose.Schema({
   ]
 }, {timestamps: true});
 
-const User = mongoose.model("User", userSchema)
-
 // pre hook : just before saving user to database -> hash the password
 userSchema.pre("save", async function(next){
 
@@ -63,5 +61,7 @@ userSchema.pre("save", async function(next){
     next(error)
   }
 })
+
+const User = mongoose.model("User", userSchema)
 
 export default User;
