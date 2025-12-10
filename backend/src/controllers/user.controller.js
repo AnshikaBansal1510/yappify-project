@@ -10,7 +10,7 @@ export async function getRecommendedUsers(req, res){
     const recommendedUsers = await User.find({
       $and: [ 
         { _id: { $ne: currentUserId }}, // exclude current user
-        { $id: { $nin: currentUser.friends }},  // exclude current user friends
+        { _id: { $nin: currentUser.friends }},  // exclude current user friends
         { isOnBoarded: true }
       ]
     })
@@ -129,6 +129,49 @@ export async function acceptFriendRequest(req, res){
   } catch (error) {
     
     console.log("Error in accepting friend request", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function getFriendRequests(req, res){
+
+  try {
+
+    const incomingRequests = await FriendRequest.find({
+
+      recipient: req.user.id,
+      status: "pending",
+    }).populate("sender", "fullName profilePic nativeLanguage learningLanguage");
+
+    const acceptedRequests = await FriendRequest.find({
+
+      sender: req.user.id,
+      status: "accepted",
+    }).populate("recipient", "fullName profilePic");
+
+    res.status(200).json({ incomingRequests, acceptedRequests });
+
+  } catch (error) {
+    
+    console.log("Error in getting accepted and incoming friend requests", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function getOutgoingFriendRequests(req, res){
+
+  try {
+    
+    const outgoingRequests = await FriendRequest.find({
+      sender: req.user.id,
+      status: "pending",
+    }).populate("recipient", "fullName profilePic nativeLanguage learningLanguage");
+
+    res.status(200).json(outgoingRequests);
+
+  } catch (error) {
+    
+    console.log("Error in getting outgoing friend requests", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 }

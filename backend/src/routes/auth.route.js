@@ -13,6 +13,9 @@ router.post("/logout", logout);
 
 router.post("/onboarding", protectRoute, onboard);
 
+// forget-password
+// reset-password
+
 // check if user is logged in and authenticated
 router.get("/me", protectRoute, (req, res) => {
   res.status(200).json({ success: true, user: req.user });
