@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import HomePage from "./pages/HomePage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { axiosInstance } from "./lib/axios.js";
 import { Navigate } from "react-router";
+import PageLoader from "./components/PageLoader.jsx";
 
 const App = () => {
 
@@ -55,7 +56,7 @@ const App = () => {
   //   },
   // });                                              // component re-renders with data
 
-  const { data: authData, isLoading, error } = useQuery({
+  const { data: authData, isLoading } = useQuery({
 
     queryKey: ["authUser"],
     queryFn: async () => {
@@ -68,10 +69,12 @@ const App = () => {
 
   const authUser = authData?.user
 
-  return <div className="h-screen" data-theme="forest"> 
+  if(isLoading)   return <PageLoader />
+
+  return <div className="h-screen" data-theme="dark"> 
 
     {/* <button onClick={() => toast.success("Heelo")}>Create a toast</button> */}
-    
+
     <Routes>
       <Route path='/' element={ authUser ? <HomePage /> : <Navigate to="/login" /> } />
       <Route path='/signup' element={ !authUser ? <SignUpPage /> : <Navigate to="/" /> } />
