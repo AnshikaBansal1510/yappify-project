@@ -8,6 +8,7 @@ import NotificationsPage from "./pages/NotificationsPage.jsx";
 import CallPage from "./pages/CallPage.jsx";
 import ChatPage from "./pages/ChatPage.jsx";
 import OnboardingPage from "./pages/OnboardingPage.jsx";
+import Layout from "./components/Layout.jsx";
 
 import { Toaster } from "react-hot-toast";
 import { Navigate } from "react-router";
@@ -66,15 +67,17 @@ const App = () => {
     {/* <button onClick={() => toast.success("Heelo")}>Create a toast</button> */}
 
     <Routes>
-      <Route 
-        path='/' 
-        element={ 
-          isAuthenticated  && isOnboarded ? (
-            <HomePage />
+      <Route
+        path="/"
+        element={
+          isAuthenticated && isOnboarded ? (
+            <Layout showSidebar={true}>
+              <HomePage />
+            </Layout>
           ) : (
-            <Navigate to={ !isAuthenticated ? "/login" : "/onboarding" } />
+            <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
           )
-        } 
+        }
       />
       <Route
         path="/signup"
