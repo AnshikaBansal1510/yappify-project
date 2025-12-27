@@ -121,7 +121,7 @@ const HomePage = () => {
                         </div>
                       </div>
 
-                      {/* Languages*/}
+                      {/* Languages */}
                       <div className="flex flex-wrap gap-1.5">
                         <span className="badge badge-secondary">
                           Native: {capitialize(user.nativeLanguage)}

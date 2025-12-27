@@ -9,15 +9,15 @@ const FriendCard = ({ friend }) => {
           <div className="avatar size-12">
             <img src={friend.profilePic} alt={friend.fullName} />
           </div>
-          <h3 className="font-semibold truncate">{friend.fullName}</h3>
+          <h3 className="font-semibold truncate">{capitialize(friend.fullName)}</h3>
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-3">
           <span className="badge badge-secondary text-xs">
-            Native: {friend.nativeLanguage}
+            Native: {capitialize(friend.nativeLanguage)}
           </span>
           <span className="badge badge-outline text-xs">
-            Learning: {friend.learningLanguage}
+            Learning: {capitialize(friend.learningLanguage)}
           </span>
         </div>
 
@@ -30,3 +30,5 @@ const FriendCard = ({ friend }) => {
 };
 
 export default FriendCard;
+
+const capitialize = (str) => str.charAt(0).toUpperCase() + str.slice(1);

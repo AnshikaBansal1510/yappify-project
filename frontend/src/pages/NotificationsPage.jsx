@@ -54,13 +54,13 @@ const NotificationsPage = () => {
                               <img src={request.sender.profilePic} alt={request.sender.fullName} />
                             </div>
                             <div>
-                              <h3 className="font-semibold">{request.sender.fullName}</h3>
+                              <h3 className="font-semibold">{capitialize(request.sender.fullName)}</h3>
                               <div className="flex flex-wrap gap-1.5 mt-1">
                                 <span className="badge badge-secondary badge-sm">
-                                  Native: {request.sender.nativeLanguage}
+                                  Native: {capitialize(request.sender.nativeLanguage)}
                                 </span>
                                 <span className="badge badge-outline badge-sm">
-                                  Learning: {request.sender.learningLanguage}
+                                  Learning: {capitialize(request.sender.learningLanguage)}
                                 </span>
                               </div>
                             </div>
@@ -101,9 +101,9 @@ const NotificationsPage = () => {
                             />
                           </div>
                           <div className="flex-1">
-                            <h3 className="font-semibold">{notification.recipient.fullName}</h3>
+                            <h3 className="font-semibold">{capitialize(notification.recipient.fullName)}</h3>
                             <p className="text-sm my-1">
-                              {notification.recipient.fullName} accepted your friend request
+                              {capitialize(notification.recipient.fullName)} accepted your friend request
                             </p>
                             <p className="text-xs flex items-center opacity-70">
                               <ClockIcon className="h-3 w-3 mr-1" />
@@ -132,3 +132,5 @@ const NotificationsPage = () => {
   );
 };
 export default NotificationsPage;
+
+const capitialize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
