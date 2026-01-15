@@ -42,7 +42,7 @@ const OnboardingPage = () => {
 
   const handleRandomAvatar = () => {
     const idx = Math.floor(Math.random() * 14) + 1; // 1-14 included
-    const randomAvatar = `/public/avatar/${idx}.png`;
+    const randomAvatar = `/assets/${idx}.png`;
 
     setFormState({ ...formState, profilePic: randomAvatar });
     toast.success("Random profile picture generated!");
